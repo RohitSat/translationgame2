@@ -1,22 +1,30 @@
 import json
+import random
 from watson_developer_cloud import LanguageTranslationV2 as LanguageTranslation
 
-languagecodes=['ar', 'en', 'es', 'fr', 'it', 'pt']
-
-#language=random.choice(
+languagecodes=['ar',  'es', 'fr', 'it', 'pt']
 
 language_translation = LanguageTranslation(username='9dd55b4f-a39c-41c8-aa44-2cc658d86b2e', password='OtrdTORKfqrU')
-    
-translation = language_translation.translate(text='Hello, my name is Rohit', source='en', target='ar')
-#print(json.dumps(translation, indent=2, ensure_ascii=False))
-print(translation)
+
+prevlanguage='en'
+
+translation=raw_input("Text to translate: ")
 
 
-translation = language_translation.translate(text=translation, source='ar', target='es')
-print(translation)
 
-#translation=language_translation.translate(text=translation, source='es', target='ru')
+for i in range(10):
+	language=random.choice(languagecodes)
+	print language
 
-#translation=language_translation.translate(text=translation, source='ru', target='en')
+	    
+	translation = language_translation.translate(text=translation, source='en', target=language)
+	print(translation)
+	translation=language_translation.translate(text=translation, source=language, target='en')
+	print(translation)
+	
+	prevlanguage=language
+
+#finaltranslation=language_translation.translate(text=translation, source=prevlanguage, target='en')
+#print(finaltranslation)
 
 
